@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { useEffect, useState } from 'react'
 import { supabase } from '@/lib/supabaseClient'
@@ -8,6 +8,7 @@ import BookmarkList from '@/components/BookmarkList'
 
 export default function Dashboard() {
   const [user, setUser] = useState<any>(null)
+  const [loading, setLoading] = useState(true) 
   const router = useRouter()
 
   useEffect(() => {
@@ -15,10 +16,12 @@ export default function Dashboard() {
       const { data: { session } } = await supabase.auth.getSession()
 
       if (!session) {
-        router.replace('/')
+        router.replace('/') // redirect if not logged in
       } else {
         setUser(session.user)
       }
+
+      setLoading(false) 
     }
 
     checkSession()
@@ -42,7 +45,15 @@ export default function Dashboard() {
     router.replace('/')
   }
 
-  if (!user) return null
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <p>Signing in…</p>
+      </div>
+    )
+  }
+
+  if (!user) return null // fallback just in case
 
   return (
     <main className="p-6 max-w-xl mx-auto">
@@ -59,7 +70,6 @@ export default function Dashboard() {
 
       <AddBookmark user={user} />
       <BookmarkList />
-
     </main>
   )
 }
