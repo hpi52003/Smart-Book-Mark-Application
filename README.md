@@ -29,7 +29,7 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-##Smart Book Mark App Implementation
+## Smart Book Mark App Implementation
 
 1. The application allows authenticated users to add bookmarks containing a Title, URL, and Category.
 
@@ -69,3 +69,30 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+### Problems Faced and Solutions
+
+1. Logout not working correctly after deployment
+   After deploying on Vercel, the app sometimes opened the dashboard again even after logout.
+   Fix: Updated the Supabase *Site URL* to the Vercel domain instead of `localhost`. This cleared the session properly and logout worked.
+
+2. Google account switching issue
+   While trying to log in with another Google account, it automatically logged into the previous account.
+   Fix: Correct redirect URLs were added in Supabase Authentication settings.
+
+3. Duplicate bookmarks being saved
+   The same user could add the same URL multiple times.
+   Fix: Added a unique constraint in the database so a user cannot save the same URL twice (but different users can).
+
+4. User data security- Privacy issue
+   Without proper protection, users could potentially access other users’ bookmarks.
+   Fix: Enabled Row Level Security (RLS) and created policies so users can only read, insert, and delete their own bookmarks.
+
+5. Sign-in page flashing before dashboard after choosing the account already
+   Sometimes the login page appeared briefly before the dashboard loaded.
+   Fix: Added a loading state and checked the session before rendering the dashboard.
+
+6. Invalid inputs (empty title or URL)
+   Users could try to submit empty or incorrect data.
+   Fix:Added form validation and warning messages for empty fields, invalid URL, or missing category.
+
