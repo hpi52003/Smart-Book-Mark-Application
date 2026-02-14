@@ -98,7 +98,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
    Fix: Added a loading state and checked the session before rendering the dashboard.
 
 11. Invalid inputs (empty title or URL)
-   Users could try to submit empty or incorrect data.
+    Users could try to submit empty or incorrect data.
 
-   Fix:Added form validation and warning messages for empty fields, invalid URL, or missing category.
+    Fix:Added form validation and warning messages for empty fields, invalid URL, or missing category.
 
