@@ -7,7 +7,7 @@ export default function AddBookmark({ user }: any) {
 
   const [title, setTitle] = useState('')
   const [url, setUrl] = useState('')
-  const [tag, setTag] = useState('')   // no default Learning
+  const [tag, setTag] = useState('')   
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState('')
   const [dropdownOpen, setDropdownOpen] = useState(false)
@@ -76,7 +76,7 @@ export default function AddBookmark({ user }: any) {
     setMessage('✅ Bookmark added successfully!')
     setTitle('')
     setUrl('')
-    setTag('')          // reset category
+    setTag('')          
     setLoading(false)
   }
 
